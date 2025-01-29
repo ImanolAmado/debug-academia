@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PreguntaController;
 use App\Http\Controllers\Api\PartidaController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,15 +24,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::controller(UserController::class)->group(function(){
- 
-    Route::post('/registro', 'create')->name('registro.create'); 
+    Route::post('/registro', 'registro')->name('user.registro'); 
+    
 });
 
 
 Route::controller(PartidaController::class)->group(function(){
- 
     Route::get('/partida', 'getPartida')->name('partida.getPartida'); 
+    Route::middleware('auth:sanctum')->post('/partida', 'store')->name('partida.postPartida'); 
 });
    
+   
+
+Route::controller(AuthController::class)->group(function(){
+    Route::post('login',  'login');
+    Route::middleware('auth:sanctum')->post('logout',  'logout');
+});
 
 

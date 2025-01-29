@@ -14,7 +14,7 @@ class User extends Authenticatable
 
 
     function partidas(){
-        return $this->hasMany("Partida::class");
+        return $this->hasMany(Partida::class);
     }
 
 
