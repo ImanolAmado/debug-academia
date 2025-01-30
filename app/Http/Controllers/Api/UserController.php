@@ -11,15 +11,15 @@ class UserController extends Controller
     public function registro(Request $request)
     {
         $request->validate([        
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'nickname' => 'required',
+            'nombre' => 'required|string|max:100',
+            'apellido' => 'required|string|max:100',
+            'nickname' => 'required|string|max:15',
             'fecha_nacimiento' => 'required',
             'email' => 'required|email',
             'password' => 'required',            
         ]);
-            
 
+             
         $user = new User();
         $user->nombre = $request->nombre;
         $user->apellido = $request->apellido;

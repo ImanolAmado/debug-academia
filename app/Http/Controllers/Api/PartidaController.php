@@ -16,6 +16,15 @@ class PartidaController extends Controller
 
     // Servir una partida
     public function getPartida(){
+
+         // Se comprueba si el usuario ha jugado ese día
+         $id = Auth::user()->id;
+         $fecha = date('Y-m-d');
+         $partidaHoy = Partida::where('fecha', $fecha)->where('id',$id)->get();
+        
+
+         // Si no ha jugado, servimos partida
+         if(count($partidaHoy)==0){      
        
         // Se recogen datos de la BBDD y se seleccionan 
         // 2 elementos aleatorios y únicos        
@@ -43,10 +52,13 @@ class PartidaController extends Controller
             $p->respuesta3 = $lista[2];
             $lista = [];
             array_push($partida, $p);  
-
-        }
-        
+        }        
         return response()->json($partida); 
+
+        // Si el usuario ya ha jugado ese día, devolvemos error
+        } else {
+            return response()->json(['messaje' => 'Espera hasta mañana para jugar'], 499);
+        }
         
     }
 
@@ -94,16 +106,17 @@ class PartidaController extends Controller
                 'puntos'    => $puntos,
                 'acierto'   => $correcto,
                 'respuesta' => $dato['respuesta']
+               
             ]);
             $puntos=0; 
             $correcto=false;
         } 
         
-         
-        $resumen = $partida->preguntas();
+        // Cogemos la partida actual
+        $partidaActual = Partida::find( $latestId);
+        $resumen = $partidaActual->preguntas;
 
-        return response()->json($respuestaCorrecta[0]->respuesta_correcta);
-       
+        return response()->json($resumen);      
    
         
     }

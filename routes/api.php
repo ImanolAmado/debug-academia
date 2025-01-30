@@ -30,7 +30,7 @@ Route::controller(UserController::class)->group(function(){
 
 
 Route::controller(PartidaController::class)->group(function(){
-    Route::get('/partida', 'getPartida')->name('partida.getPartida'); 
+    Route::middleware('auth:sanctum')->get('/partida', 'getPartida')->name('partida.getPartida'); 
     Route::middleware('auth:sanctum')->post('/partida', 'store')->name('partida.postPartida'); 
 });
    
