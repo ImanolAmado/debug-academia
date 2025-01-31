@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\PartidaController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\AuthController;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,7 +35,11 @@ Route::controller(PartidaController::class)->group(function(){
     Route::middleware('auth:sanctum')->post('/partida', 'store')->name('partida.postPartida'); 
 });
    
-   
+
+Route::controller(PreguntaController::class)->group(function(){
+    Route::get('/ranking', 'getRanking')->name('pregunta.getRanking'); 
+  
+});
 
 Route::controller(AuthController::class)->group(function(){
     Route::post('login',  'login');

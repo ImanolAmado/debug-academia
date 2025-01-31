@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('partidas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->timestamp('fecha');
+            $table->date('fecha');
             $table->timestamps();
         });
     }

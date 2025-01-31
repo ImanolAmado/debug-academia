@@ -20,16 +20,16 @@ class PartidaController extends Controller
          // Se comprueba si el usuario ha jugado ese día
          $id = Auth::user()->id;
          $fecha = date('Y-m-d');
-         $partidaHoy = Partida::where('fecha', $fecha)->where('id',$id)->get();
+         $partidaHoy = Partida::where('fecha', $fecha)->where('user_id',$id)->exists();
         
 
          // Si no ha jugado, servimos partida
-         if(count($partidaHoy)==0){      
+         if(!$partidaHoy){      
        
         // Se recogen datos de la BBDD y se seleccionan 
         // 2 elementos aleatorios y únicos        
         $preguntas = Pregunta::all();
-        $datos=$preguntas->random(2)->unique();  
+        $datos=$preguntas->random(10)->unique();  
         $lista=[];
         $partida=[];        
 
@@ -57,7 +57,7 @@ class PartidaController extends Controller
 
         // Si el usuario ya ha jugado ese día, devolvemos error
         } else {
-            return response()->json(['messaje' => 'Espera hasta mañana para jugar'], 499);
+           return response()->json(['messaje' => 'Espera hasta mañana para jugar'], 499);
         }
         
     }
@@ -90,6 +90,7 @@ class PartidaController extends Controller
         
        // No se puede iterar directamente "request"
         $datos = $request->all(); 
+        $fecha = date('Y-m-d');
         $puntos=0;
         $correcto=false;
         $resumen = [];
@@ -105,9 +106,9 @@ class PartidaController extends Controller
             $partida->preguntas()->attach($dato['id_pregunta'], [
                 'puntos'    => $puntos,
                 'acierto'   => $correcto,
-                'respuesta' => $dato['respuesta']
-               
-            ]);
+                'respuesta' => $dato['respuesta'],
+                'fecha' => $fecha               
+            ]);            
             $puntos=0; 
             $correcto=false;
         } 

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('puntos');
             $table->boolean('acierto');
             $table->string('respuesta',250)->nullable();
+            $table->date('fecha');
             $table->timestamps();
         });
     }

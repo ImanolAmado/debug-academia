@@ -16,7 +16,7 @@ class Partida extends Model
     }
 
     function preguntas(){
-        return $this->belongsToMany(Pregunta::class)->withPivot(['puntos','acierto','respuesta']);
+        return $this->belongsToMany(Pregunta::class)->withPivot(['puntos','acierto','respuesta','fecha']);
     }
 
 }

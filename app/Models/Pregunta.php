@@ -11,7 +11,7 @@ class Pregunta extends Model
     use HasFactory, HasApiTokens;
 
     function partidas(){
-        return $this->belongsToMany(Partida::class)->withPivot(['puntos','acierto','respuesta']);
+        return $this->belongsToMany(Partida::class)->withPivot(['puntos','acierto','respuesta','fecha']);
 
     }
 
