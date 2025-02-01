@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Partida;
+use App\Models\Pregunta;
+
+use \Auth;
 
 class UserController extends Controller
 {
@@ -47,5 +51,24 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);         
         $user->save();       
         return response()->json($user, 201);   
+    }
+
+
+    public function getUserStats(){
+        $user = Auth::user();
+
+        // Número partidas usuario
+        $partidas = Partida::where('user_id',$user->id)->get();        
+        $numPartidas = count($partidas);
+
+        // Preguntas acertadas
+        $partida = Partida::where('user_id', $user->id)->get();
+        $partida_pregunta = [];
+        foreach($partida as $p){
+        array_push($partida_pregunta,$p->preguntas);
+        }
+
+        return response()->json($partida_pregunta);   
+
     }
 }

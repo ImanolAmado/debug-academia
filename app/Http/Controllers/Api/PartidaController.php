@@ -27,7 +27,7 @@ class PartidaController extends Controller
          if(!$partidaHoy){      
        
         // Se recogen datos de la BBDD y se seleccionan 
-        // 2 elementos aleatorios y únicos        
+        // 10 elementos aleatorios y únicos        
         $preguntas = Pregunta::all();
         $datos=$preguntas->random(10)->unique();  
         $lista=[];

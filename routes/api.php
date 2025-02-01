@@ -23,12 +23,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::controller(UserController::class)->group(function(){
-    Route::post('/registro', 'registro')->name('user.registro'); 
+    Route::post('/registro', 'registro')->name('user.registro');
+    Route::middleware('auth:sanctum')->get('/userstats','getUserStats')->name('user.getUserStats'); 
     
 });
-
 
 Route::controller(PartidaController::class)->group(function(){
     Route::middleware('auth:sanctum')->get('/partida', 'getPartida')->name('partida.getPartida'); 
@@ -38,7 +37,7 @@ Route::controller(PartidaController::class)->group(function(){
 
 Route::controller(PreguntaController::class)->group(function(){
     Route::get('/ranking', 'getRanking')->name('pregunta.getRanking'); 
-  
+    Route::get("/rankingsemanal", 'getRankingSemanal')->name('pregunta.getRankinSemanal');
 });
 
 Route::controller(AuthController::class)->group(function(){
