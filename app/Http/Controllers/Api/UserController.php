@@ -56,11 +56,7 @@ class UserController extends Controller
 
     public function getUserStats(){
         $user = Auth::user();
-
-        // Número partidas usuario
-        $partidas = Partida::where('user_id',$user->id)->get();        
-        $numPartidas = count($partidas);
-
+             
         // Preguntas acertadas
         $partida = Partida::where('user_id', $user->id)->get();
         $partida_pregunta = [];
