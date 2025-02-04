@@ -64,7 +64,10 @@ class UserController extends Controller
         array_push($partida_pregunta,$p->preguntas);
         }
 
-        return response()->json($partida_pregunta);   
-
+        return response()->json($partida_pregunta);  
     }
+
+
+
+
 }

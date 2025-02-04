@@ -1,0 +1,51 @@
+
+header {
+    padding-left: 50px;
+    background-color:#2a3952;
+}
+
+  
+body {
+    background: #c7d6ed;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.content {
+    flex: 1; 
+}
+  
+  
+.cabecera {
+    padding-top: 25px;
+   
+}
+
+  
+  #titulo {
+    margin-left: 30px;
+    color: white;
+  }
+ 
+  
+  #ham{
+    margin-top: 10px;
+  }
+  
+  .nav-link{
+    color: white; 
+  }
+  
+  .nav-link:hover {  
+    color: white;
+    font-weight: bold;
+  }
+
+  
+  .espacio {
+    height: 75px;
+  }
+ 

@@ -20,9 +20,9 @@ class AuthController extends Controller
         if(Auth::attempt($credentials)){
             $user = Auth::user();
             $token = $user->createToken('debugApp')->plainTextToken;
-            return response()->json(['token' => $token]);
+            return response()->json(['token' => $token, 'user' => $user]);
         }
-        return response()->json(['messaje' => 'No autorizado'], 401);
+        return response()->json(['messaje' => 'No estas autorizado'], 401);
     }
     
     
