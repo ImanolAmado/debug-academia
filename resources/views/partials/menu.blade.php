@@ -12,7 +12,7 @@
                 <a class="nav-link" href={{route('login')}}>Inicio</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href={{route('login')}}>Usuarios</a>
+                <a class="nav-link" href={{route('user.index')}}>Usuarios</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href={{route('login')}}>Preguntas</a>

@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,11 +22,9 @@ Route::get('/', [HomeController::class, 'index']
 )->middleware(['auth', 'verified'])->name('home');
 
 
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 
 
 Route::middleware('auth')->group(function () {
@@ -34,6 +32,17 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/usuarios', [UserController::class, 'index'])->name('user.index');
+    Route::get('/usuarios_edit/{usuario}', [UserController::class, 'edit'])->name('user.edit'); 
+    Route::post('/usuarios_store', [UserController::class, 'store'])->name('user.store');
+    Route::post('/usuarios_update', [UserController::class, 'update'])->name('user.update');
+});
+
+
+
 
 
 

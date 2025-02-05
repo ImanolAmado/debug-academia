@@ -15,7 +15,7 @@
     @include('partials.menu')
 </header>
     <div id="page-container" class="container">    
-        <div class="espacio"></div>
+        
         @yield('contenido')
         <div class="espacio"></div>
     </div> 

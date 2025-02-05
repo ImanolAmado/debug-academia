@@ -19,7 +19,7 @@ class UserController extends Controller
             'apellido' => 'required|string|max:100',
             'nickname' => 'required|string|max:15',
             'fecha_nacimiento' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|max:200',
             'password' => 'required',            
         ]);
 
