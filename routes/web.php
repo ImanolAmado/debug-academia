@@ -21,22 +21,22 @@ use App\Http\Controllers\PreguntaController;
 
 
 Route::get('/', [HomeController::class, 'index']
-)->middleware(['auth', 'verified'])->name('home');
+)->middleware(['auth', 'verified','role:admin'])->name('home');
 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified','role:admin'])->name('dashboard');
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/usuarios', [UserController::class, 'index'])->name('user.index');
     Route::get('/usuarios_edit/{usuario}', [UserController::class, 'edit'])->name('user.edit'); 
     Route::post('/usuarios_store', [UserController::class, 'store'])->name('user.store');
@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/preguntas', [PreguntaController::class, 'index'])->name('pregunta.index');
     Route::get('/preguntas_edit/{pregunta}', [PreguntaController::class, 'edit'])->name('pregunta.edit'); 
     Route::post('/preguntas_store', [PreguntaController::class, 'store'])->name('pregunta.store');
