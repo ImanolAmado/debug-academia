@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pregunta;
 use \Auth;
+use \Http;
 
 class PreguntaController extends Controller
 {
@@ -108,5 +109,28 @@ class PreguntaController extends Controller
     }
 
 
+    // consumir Api
+    public function createApi(){
 
+    $response = Http::get('https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple');
+
+    $data = $response->json();  
+    $resultados = $data['results'];
+
+    foreach($resultados as $resultado){
+
+        $p = new Pregunta();
+        $p->pregunta = $resultado['question'];
+        $p->respuesta_correcta = $resultado['correct_answer'];
+        $p->respuesta1 = $resultado['incorrect_answers'][0];
+        $p->respuesta2 = $resultado['incorrect_answers'][1];
+        $p->imagen = "images/preguntas/22.jpg";
+        $p->categoria = "Inglés técnico";
+        $p->save();     
+        
+    }  
+
+    return redirect()->route('pregunta.index');
+     
+    }
 }

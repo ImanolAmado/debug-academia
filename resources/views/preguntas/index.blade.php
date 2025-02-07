@@ -8,12 +8,17 @@
   <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
     <h3>Gestión de Preguntas</h3>
   </div>  
-</div><br>
-<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-  <a href="{{ route('pregunta.create')}}">
-  <button class="btn btn-primary">Añadir Pregunta</button>
-  </a>
 </div>
+<div class="row d-flex">
+  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <a href="{{ route('pregunta.create')}}">
+    <button class="btn btn-primary">Añadir Pregunta</button></a>
+    <a href="{{ route('pregunta.api')}}">
+      <button class="btn btn-primary m-3">Consumir Api</button></a>
+  </div>
+</div>
+  
+
 <!-- Tabla -->
 <div class="row mt-4">
   <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -43,7 +48,7 @@
        
         <td><a href="{{route('pregunta.edit',$pregunta)}}"><input type="image" src="{{ asset('images/editar.png') }}" alt="Editar" style="width: 20px; height: 20px;"></a></td>
         <td>
-          <form id="borrado" action="{{ route('pregunta.destroy', $pregunta) }}" method="post">
+          <form class="borrado-form" action="{{ route('pregunta.destroy', $pregunta) }}" method="post">
             @csrf
             @method('delete')
             <input type="image" src="{{ asset('images/bin.png') }}" alt="Eliminar" style="width: 20px; height: 20px;">
@@ -55,4 +60,32 @@
  {{$preguntas->links('pagination::bootstrap-5')}} 
   </div>
 </div>
+@endsection 
+@section('misAlertas')
+<!-- Script para sacar alertas de SweetAlert. Captura evento de envío
+    del formulario para eliminar registro y pide confirmación al usuario -->
+
+<!-- VIDEO:  https://www.youtube.com/watch?v=QdnYTOuze1s  -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.borrado-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: "¿Estás seguro?",
+                    text: "La pregunta será eliminada",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Aceptar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
+    </script>
 @endsection 

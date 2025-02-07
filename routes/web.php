@@ -52,6 +52,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::post('/preguntas_store', [PreguntaController::class, 'store'])->name('pregunta.store');
     Route::put('/preguntas_update/{pregunta}', [PreguntaController::class, 'update'])->name('pregunta.update');
     Route::get('/preguntas_create', [PreguntaController::class, 'create'])->name('pregunta.create');
+    Route::get('/preguntas_api', [PreguntaController::class, 'createApi'])->name('pregunta.api');
     Route::delete('/preguntas_destroy/{pregunta}', [PreguntaController::class, 'destroy'])->name('pregunta.destroy');
 });
 

@@ -17,7 +17,7 @@
     <!-- Formulario -->
     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
     <form action='{{route("pregunta.update", $pregunta)}}' method="post" enctype="multipart/form-data">
-    @method('put');
+    @method('put')
         @csrf    
         <div class="form-group">
           <label for="pregunta">Pregunta:</label>

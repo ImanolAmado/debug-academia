@@ -43,7 +43,7 @@
         <td>{{$usuario->role}}</td>
         <td><a href="{{route('user.edit',$usuario)}}"><input type="image" src="{{ asset('images/editar.png') }}" alt="Eliminar" style="width: 20px; height: 20px;"></a></td>
         <td>
-          <form id="borrado" action="{{ route('user.destroy', $usuario) }}" method="post">
+          <form class="borrado-form" action="{{ route('user.destroy', $usuario) }}" method="post">
             @csrf
             @method('delete')
             <input type="image" src="{{ asset('images/bin.png') }}" alt="Eliminar" style="width: 20px; height: 20px;">
@@ -55,4 +55,32 @@
  {{$usuarios->links('pagination::bootstrap-5')}} 
   </div>
 </div>
+@endsection 
+@section('misAlertas')
+<!-- Script para sacar alertas de SweetAlert. Captura evento de envío
+    del formulario para eliminar registro y pide confirmación al usuario -->
+
+<!-- VIDEO:  https://www.youtube.com/watch?v=QdnYTOuze1s  -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.borrado-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: "¿Estás seguro?",
+                    text: "El usuario será eliminado",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Aceptar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
+    </script>
 @endsection 

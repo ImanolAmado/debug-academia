@@ -5,7 +5,7 @@ namespace App\Providers;
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use \Gate;
-
+use \DateTime;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -27,12 +27,19 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('isAdulto', function ($user){
-            return $user->age >=18;
+        Gate::define('isAdult', function ($user){
+            
+            $hoy = new DateTime("now");
+            $fecha_nacimiento = new DateTime($user->fecha_nacimiento);
+            $diff = $hoy->diff($fecha_nacimiento);
+            
+            return $diff->y >= 18;
         });
+    
 
-        
-
-        
     }
+
+    
+
+
 }

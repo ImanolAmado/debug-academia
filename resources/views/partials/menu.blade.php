@@ -9,16 +9,13 @@
         <div class="collapse navbar-collapse" id="miMenu" data-bs-theme="dark">                        
             <ul class="navbar-nav"> 
             <li class="nav-item">
-                <a class="nav-link" href={{route('home')}}>Inicio</a>
+                <a class="nav-link" href={{route('home')}}>Estadísticas</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href={{route('user.index')}}>Usuarios</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href={{route('pregunta.index')}}>Preguntas</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href={{route('login')}}>Estadísticas</a>
             </li>
             <form method="POST" action="{{ route('logout') }}">
                 <li class="nav-item">

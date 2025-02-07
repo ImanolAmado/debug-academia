@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Partida;
-use App\Models\Pregunta;
 
 use \Auth;
+use \Gate;
 
 class UserController extends Controller
 {
@@ -43,7 +43,7 @@ class UserController extends Controller
         } else {
         $user->email = $request->email;
         }
-
+       
         $user->fecha_nacimiento = $request->fecha_nacimiento;
         $user->email = $request->email;
         $user->role = 'user';
