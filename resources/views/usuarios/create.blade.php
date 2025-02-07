@@ -1,5 +1,5 @@
 @extends('layouts.debugAcademia')
-@section('tituloWeb', 'Index')
+@section('tituloWeb', 'Create')
 @section('enlaceCSS')
     <link rel="stylesheet" href="{{ asset('css/estiloGeneral.css') }}">   
 @endsection
@@ -7,7 +7,7 @@
 
 <div class="row mt-3">
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <h3 class="text-center">Editar usuario</h3>
+        <h3 class="text-center">Nuevo usuario</h3>
     </div>
 </div>
 
@@ -16,17 +16,15 @@
 
     <!-- Formulario -->
     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-    <form action='{{route("user.update", $usuario)}}' method="post" enctype="multipart/form-data">
-    @csrf  
-    @method('put')
+    <form action='{{route("user.store")}}' method="post" enctype="multipart/form-data">
+    @csrf    
         <div class="form-group">
           <label for="nombre">Nombre:</label>
           <input 
           type="text" 
           class="form-control" 
           id="nombre" 
-          name="nombre"
-          value="{{ $usuario->nombre}}"
+          name="nombre"     
           required>
         @error('nombre')
             <p style="color: red">{{ $message }}</p>
@@ -38,8 +36,7 @@
             type="text" 
             class="form-control" 
             id="apellido" 
-            name="apellido" 
-            value="{{ $usuario->apellido}}"
+            name="apellido"          
             required>
             @error('apellido')
             <p style="color: red">{{ $message }}</p>
@@ -51,8 +48,7 @@
             type="email" 
             class="form-control" 
             id="email" 
-            name="email" 
-            value="{{ $usuario->email}}"
+            name="email"          
             required>
             @error('email')
             <p style="color: red">{{ $message }}</p>
@@ -63,8 +59,7 @@
             <input type="text" 
             class="form-control" 
             id="nickname" 
-            name="nickname" 
-            value="{{ $usuario->nickname}}"
+            name="nickname"            
             required>
             @error('nickname')
             <p style="color: red">{{ $message }}</p>
@@ -76,8 +71,7 @@
                 <input type="date" 
                 class="form-control" 
                 id="fecha_nacimiento" 
-                name="fecha_nacimiento" 
-                value="{{ $usuario->fecha_nacimiento}}"
+                name="fecha_nacimiento"               
                 required>  
                 @error('fecha_nacimiento')
             <p style="color: red">{{ $message }}</p>
@@ -136,7 +130,7 @@
 <div class="d-flex justify-content-center mt-4">   
     <button class="btn btn-primary m-2" type="submit">Enviar</button>
 </div>
-    </form>    
+    </form>
+    </div>
 </div>            
 @endsection
-

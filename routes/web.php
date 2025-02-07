@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PreguntaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,8 +40,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/usuarios', [UserController::class, 'index'])->name('user.index');
     Route::get('/usuarios_edit/{usuario}', [UserController::class, 'edit'])->name('user.edit'); 
     Route::post('/usuarios_store', [UserController::class, 'store'])->name('user.store');
-    Route::post('/usuarios_update', [UserController::class, 'update'])->name('user.update');
+    Route::put('/usuarios_update/{usuario}', [UserController::class, 'update'])->name('user.update');
+    Route::get('/usuarios_create', [UserController::class, 'create'])->name('user.create');
+    Route::delete('/usuarios_destroy/{usuario}', [UserController::class, 'destroy'])->name('user.destroy');
 });
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/preguntas', [PreguntaController::class, 'index'])->name('pregunta.index');
+    Route::get('/preguntas_edit/{pregunta}', [PreguntaController::class, 'edit'])->name('pregunta.edit'); 
+    Route::post('/preguntas_store', [PreguntaController::class, 'store'])->name('pregunta.store');
+    Route::put('/preguntas_update/{pregunta}', [PreguntaController::class, 'update'])->name('pregunta.update');
+    Route::get('/preguntas_create', [PreguntaController::class, 'create'])->name('pregunta.create');
+    Route::delete('/preguntas_destroy/{pregunta}', [PreguntaController::class, 'destroy'])->name('pregunta.destroy');
+});
+
+
 
 
 

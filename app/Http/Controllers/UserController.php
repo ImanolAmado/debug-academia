@@ -15,13 +15,11 @@ class UserController extends Controller
     {        
     // Todos los usuarios ordenados por fecha de creación
     $usuarios=User::orderBy('created_at','desc')->paginate();    
-    return view('usuarios.index', compact('usuarios'));
-        
+    return view('usuarios.index', compact('usuarios'));        
     }
 
 
     public function edit(User $usuario){   
-
     return view('usuarios.edit', compact('usuario'));
     }
 
@@ -33,11 +31,12 @@ class UserController extends Controller
         $request->validate([        
             'nombre' => 'required|string|max:100|min:3',
             'apellido' => 'required|string|max:100|min:3',
-            'nickname' => 'required|string|max:15|min:3',
-            'fecha_nacimiento' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|confirmed',            
-            'role' => 'required|in:user,admin'    
+            'nickname' => 'required|string|max:15|min:3|unique:users,nickname,' . $usuario->id,
+            'fecha_nacimiento' => 'required|date',
+            'email' => 'required|email|unique:users,email,' . $usuario->id,
+            'password' => 'required|confirmed|min:6',            
+            'role' => 'required|in:user,admin',
+            'avatar' => 'image|mimes:jpeg,png,jpg|max:2048'    
         ]);
 
         $usuario->nombre = $request->nombre;
@@ -46,29 +45,74 @@ class UserController extends Controller
         $usuario->nickname = $request->nickname;
         $usuario->fecha_nacimiento = $request->fecha_nacimiento;
         $usuario->role = $request->role;
-        $usuario->password = $request->password;
+        $usuario->password = bcrypt($request->password);
+        
+        
+        // https://www.youtube.com/watch?v=wLA649wUPP4
+        // Si existe el archivo, se guarda en la rutaimages/avatares
+         if ($request->hasFile('avatar')) {
+            $avatarPath = $request->file('avatar')->store('images/avatares', 'public');
+            $usuario->avatar = $avatarPath;
+        } 
 
-     
-                
-        $correcto = 5;
-        try {
-        $usuario->save();
-        } catch (Exception $e) {
-            $correcto=6;
-        }
-        return redirect()->route('user.index')->with('correcto',$correcto);
+        $usuario->save();                          
+       
+       return redirect()->route('user.index');
+    }
+
+
+    public function create(){
+        return view('usuarios.create');       
+    
     }
 
 
 
+    public function store(Request $request, User $usuario){
 
+        $request->validate([        
+            'nombre' => 'required|string|max:100|min:3',
+            'apellido' => 'required|string|max:100|min:3',
+            'nickname' => 'required|string|max:15|min:3',
+            'fecha_nacimiento' => 'required|date',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:6',            
+            'role' => 'required|in:user,admin',
+            'avatar' => 'image|mimes:jpeg,png,jpg|max:2048'    
+        ]);
 
+        $usuario->nombre = $request->nombre;
+        $usuario->apellido = $request->apellido;
+        $usuario->email = $request->email;
+        $usuario->nickname = $request->nickname;
+        $usuario->fecha_nacimiento = $request->fecha_nacimiento;
+        $usuario->role = $request->role;
+        $usuario->password = bcrypt($request->password);
+        
+        
+        // https://www.youtube.com/watch?v=wLA649wUPP4
+        // Si existe el archivo, se guarda en la rutaimages/avatares
+         if ($request->hasFile('avatar')) {
+           $avatarPath = $request->file('avatar')->store('images/avatares', 'public');
+           
+            $usuario->avatar = $avatarPath;
+        } else {
+            $usuario->avatar = 'images/avatares/avatar1.png';
+        }
 
-
-    public function store(User $usuario){
-
+        $usuario->save();                          
+       
+       return redirect()->route('user.index');
       
     
+    }
+
+
+    public function destroy(User $usuario){
+
+        $usuario->delete();
+        return redirect()->route('user.index');
+
     }
 
 
