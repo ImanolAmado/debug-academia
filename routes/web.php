@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PreguntaController;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,10 +19,16 @@ use App\Http\Controllers\PreguntaController;
 |
 */
 
+Route::middleware(['auth', 'verified','role:admin'])->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/statsaciertos', [HomeController::class, 'aciertos'])->name('stats.aciertos');
+    Route::get('/statsdiamasjugado', [HomeController::class, 'diaMasJugado'])->name('stats.diaMasJugado');
+    Route::get('/statspartidasdia', [HomeController::class, 'partidasDia'])->name('stats.partidasDia');
+    Route::get('/statsaciertosdia', [HomeController::class, 'aciertosDia'])->name('stats.aciertosDia');
+});
 
-
-Route::get('/', [HomeController::class, 'index']
-)->middleware(['auth', 'verified','role:admin'])->name('home');
+/* Route::get('/', [HomeController::class, 'index']
+)->middleware(['auth', 'verified','role:admin'])->name('home'); */
 
 
 Route::get('/dashboard', function () {
@@ -55,12 +62,6 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/preguntas_api', [PreguntaController::class, 'createApi'])->name('pregunta.api');
     Route::delete('/preguntas_destroy/{pregunta}', [PreguntaController::class, 'destroy'])->name('pregunta.destroy');
 });
-
-
-
-
-
-
 
 
 

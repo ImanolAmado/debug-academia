@@ -4,26 +4,30 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'DebugAcademia') }}</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-        <!-- Scripts -->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="{{ asset('css/login.css') }}">   
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
+        </head>
+    <body>
+    <div class="container">
+  
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
+            <div class="mt-5 row justify-content-center">
                 <a href="/">
                     <img width="175" src="/images/debugLogo.png"/>
                 </a>
-            </div>
-            <div class="w-full sm:max-w-md mt-3 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+            </div>    
+            <div class="shadow-md overflow-hidden sm:rounded-lg">
+               
+                     
                 {{ $slot }}
             </div>
-        </div>
-    </body>
+        </div>    
+    </div>
+</body>
 </html>

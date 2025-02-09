@@ -20,7 +20,7 @@ class AuthController extends Controller
             $token = $user->createToken('App')->plainTextToken;
             return response()->json(['token' => $token, 'user' => $user]);
         }
-        return response()->json(['messaje' => 'hey no autorizado'], 401);
+        return response()->json(['messaje' => 'no autorizado'], 401);
     }
     
     

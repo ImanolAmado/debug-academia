@@ -32,6 +32,7 @@ class PreguntaController extends Controller
 
         // Ranking semanal
         // Restar fechas: https://www.jose-aguilar.com/blog/sumar-restar-dias-una-fecha-php/
+        // https://elinawebs.com/como-sumar-y-restar-fechas-con-php-con-strtotime-y-date/
         
         $fechaHoy = date('Y-m-d');
         $fechaSemanaPasada = date('Y-m-d', strtotime('-7 day', strtotime($fechaHoy)));

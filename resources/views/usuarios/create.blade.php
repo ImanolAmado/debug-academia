@@ -127,7 +127,10 @@
     </div>
 </div>    
 
-<div class="d-flex justify-content-center mt-4">   
+<div class="d-flex justify-content-center mt-4"> 
+    <a href="{{ route('user.index')}}">
+        <button class="btn btn-secondary m-2" type="button">Volver</button>
+    </a> 
     <button class="btn btn-primary m-2" type="submit">Enviar</button>
 </div>
     </form>
